@@ -16,8 +16,8 @@ class UserController {
 
     getValues(){
         let user = {}
-
-        this.formEl.elements.forEach(function(field, index){
+        var spread = [...this.formEl.elements]
+        spread.forEach(function(field, index){
             if(field.name == "gender"){
                 if(field.checked){
                     user[field.name] = field.value
@@ -43,11 +43,11 @@ class UserController {
         )
 
 
-
-
     }//fechando o metodo getValues
 
     addLine(dataUser){
+
+            console.log(dataUser)
 
             this.tableEl.innerHTML = `
         
