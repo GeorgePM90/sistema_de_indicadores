@@ -8,11 +8,16 @@ class UserController {
     onSubmit(){
         this.formEl.addEventListener("submit", (event)=>{
             event.preventDefault()
+            let btn = this.formEl.querySelector("[type=submit]")
+            btn.disabled = true
+
             let values = this.getValues()
             this.getPhoto().then(
                 (content)=>{
                     values.photo = content
                     this.addLine(values)
+                    this.formEl.reset()
+                    btn.disabled = false
                 },
                 (e)=>{
                     console.error(e)
@@ -96,8 +101,13 @@ class UserController {
                     <td><img src="${dataUser.photo}" alt="User Image" class="img-circle img-sm"></td>
                     <td>${dataUser.name}</td>
                     <td>${dataUser.email}</td>
+<<<<<<< HEAD
                     <td>${dataUser.admin}</td>
                     <td>${Utils.dateFormat(dataUser.register)}</td>
+=======
+                    <td>${dataUser.admin ? 'Sim' : 'Não' }</td>
+                    <td>${dataUser.birth}</td>
+>>>>>>> ffeaa0e2d66cb9d9fd7ccbdf55267dd23f5570a2
                         <td>
                             <button type="button" class="btn btn-primary btn-xs btn-flat">Editar</button>
                             <button type="button" class="btn btn-danger btn-xs btn-flat">Excluir</button>
@@ -107,6 +117,6 @@ class UserController {
             this.tableEl.appendChild(tr)
 
 
-    }
+    }//FECHANDO O MÉTODO ADDLINE
 
 }
