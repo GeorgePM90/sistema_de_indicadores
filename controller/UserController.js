@@ -140,7 +140,8 @@ class UserController {
 
             numberUsers++ 
             let user =  JSON.parse(tr.dataset.user)
-            if(user.admin) numberAdmin++
+            if(user._admin) numberAdmin++
+         
 
         })
 
