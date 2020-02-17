@@ -28,6 +28,9 @@ class User{
     get country (){
         return this._country
     }
+    get email(){
+        return this._email
+    }
     get password (){
         return this._password
     }
