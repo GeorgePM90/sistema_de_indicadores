@@ -3,11 +3,16 @@ class UserController {
         this.formEl = document.getElementById(formId)
         this.tableEl = document.getElementById(tableId)
         this.onSubmit()
+        this.onEdit()
     }
 
-    onEditCancel(){
-        document.querySelector("#box-user-update")
+    onEdit(){
+        document.querySelector("#box-user-update .btn-cancel").addEventListener("click", e=>{
+            this.showPanelCreate()
+        })
     }
+
+
 
     onSubmit(){
         this.formEl.addEventListener("submit", (event)=>{
@@ -129,9 +134,26 @@ class UserController {
 
             `
             tr.querySelector(".btn-edit").addEventListener("click", e =>{
-                console.log(JSON.parse(tr.dataset.user))
-                document.querySelector("#box-user-create").style.display = "none"
-                document.querySelector("#box-user-update").style.display = "block"
+                let json = JSON.parse(tr.dataset.user)
+                let form = document.querySelector("#form-user-update")
+
+                for(let name in json){
+                    let field = form.querySelector("[name=" + name.replace("_","") + "]")
+                    console.log(name, field)
+
+                    if(field){
+                        if(field.type == 'file') continue
+                        field.value = json[name]
+                    }
+
+
+                }
+
+
+                
+
+                this.showPanelUpdate()
+                
 
             })
             this.tableEl.appendChild(tr)
@@ -139,6 +161,19 @@ class UserController {
 
 
     }//FECHANDO O MÉTODO ADDLINE
+
+    showPanelCreate(){
+
+        document.querySelector("#box-user-create").style.display = "block"
+        document.querySelector("#box-user-update").style.display = "none"
+
+    }
+
+    showPanelUpdate(){
+        document.querySelector("#box-user-create").style.display = "none"
+        document.querySelector("#box-user-update").style.display = "block"
+        
+    }
 
     updateCount(){
 
