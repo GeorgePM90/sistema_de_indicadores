@@ -1,6 +1,7 @@
 class UserController {
-    constructor(formId, tableId){
-        this.formEl = document.getElementById(formId)
+    constructor(formIdCreate, formIdUpdate, tableId){
+        this.formEl = document.getElementById(formIdCreate)
+        this.formUpdateEl = document.getElementById(formIdUpdate)
         this.tableEl = document.getElementById(tableId)
         this.onSubmit()
         this.onEdit()
@@ -10,6 +11,16 @@ class UserController {
         document.querySelector("#box-user-update .btn-cancel").addEventListener("click", e=>{
             this.showPanelCreate()
         })
+
+        this.formUpdateEl.addEventListener("submit", event=>{
+            event.preventDefault()
+            let btn = this.formUpdateEl.querySelector("[type=submit]")
+            btn.disabled = true
+            let values = this.getValues(this.formUpdateEl)
+            console.log(values)
+        })
+
+
     }
 
 
@@ -20,7 +31,7 @@ class UserController {
             let btn = this.formEl.querySelector("[type=submit]")
             btn.disabled = true
 
-            let values = this.getValues()
+            let values = this.getValues(this.formEl)
 
             if(!values) return false
             this.getPhoto().then(
@@ -139,7 +150,7 @@ class UserController {
 
                 for(let name in json){
                     let field = form.querySelector("[name=" + name.replace("_","") + "]")
-                    console.log(name, field)
+                    
 
                     if(field){
                         
@@ -149,7 +160,7 @@ class UserController {
                             break
 
                             case 'radio':
-                                let field = form.querySelector("[name=" + name.replace("_","") + "][value=" +jason[name]+"]")
+                                field = form.querySelector("[name=" + name.replace("_","") + "][value=" + jason[name] + "]")
                                 field.checked = true
                             break
 
@@ -162,7 +173,7 @@ class UserController {
                                 field.value = json[name]
                         }
 
-                        field.value = json[name]
+                 
                     }
 
 
